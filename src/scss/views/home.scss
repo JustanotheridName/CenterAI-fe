@@ -1,0 +1,6 @@
+.home {
+    @include center-content();
+    gap: 24px;
+    height: 100%;
+    padding: 6px;
+}

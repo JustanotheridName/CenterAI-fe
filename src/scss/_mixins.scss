@@ -1,0 +1,18 @@
+@mixin center-content() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin box($height, $width) {
+    height: $height;
+    width: $width;
+}
+
+@mixin montserrat-font($size, $weight, $line, $spacing) {
+    font-family: "Montserrat", sans-serif;
+    font-size: $size;
+    font-weight: $weight;
+    line-height: $line;
+    letter-spacing: $spacing;
+}

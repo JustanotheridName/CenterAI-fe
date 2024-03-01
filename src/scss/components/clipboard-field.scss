@@ -1,0 +1,28 @@
+.clipboard-field {
+    @include box(56px, 100%);
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #FAFAFA;
+    padding: 16px;
+    border-radius: 8px;
+    gap: 16px;
+
+    &__value {
+        @include montserrat-font(15px, 700, 17px, 0em);
+        text-align: left;
+        color: #4A24AC;
+    }
+
+    &__icon {
+        &:active {
+            transform: scale(0.9);
+        }
+
+        &:hover {
+            transition: 200ms;
+        }
+    }
+}

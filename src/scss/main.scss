@@ -1,0 +1,11 @@
+$text-semibold: 600;
+$text-regular-size: 12px;
+$text-medium-size: 14px;
+$text-title-size: 22px;
+
+@import './mixins';
+@import 'components/shorten-link-card.scss';
+@import 'components/base-button.scss';
+@import 'components/link-input.scss';
+@import 'components/clipboard-field.scss';
+@import 'views/home.scss';
