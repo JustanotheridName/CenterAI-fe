@@ -19,7 +19,7 @@ import { Component, Ref, Vue } from 'vue-property-decorator';
 import LinkInput from '@/components/Shared/LinkInput.vue';
 import ClipboardField from '@/components/Shared/ClipboardField.vue'
 import BaseButton from '@/components/Shared/BaseButton.vue';
-import { ShortenLinkCardActions } from '@/store/ShortenLinkCard/types'
+import { ShortenLinkCardActions, ShortenLinkCardGetters } from '@/store/ShortenLinkCard/types'
 
 @Component({
   components: {
@@ -30,9 +30,10 @@ import { ShortenLinkCardActions } from '@/store/ShortenLinkCard/types'
 })
 export default class ShortenLinkCard extends Vue {
   @Ref('LinkInputRef') LinkInputRef!: LinkInput;
+  
+  get short_link() { return this.$store.getters[ShortenLinkCardGetters.CONVERTED_LINK] }
 
   private error = false;
-  private short_link = '';
 
   private onShortenLinkClick() {
     this.error = !this.LinkInputRef.isValid;

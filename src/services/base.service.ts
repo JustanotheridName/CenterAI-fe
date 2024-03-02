@@ -1,94 +1,39 @@
-// import { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios'
-// import {IServiceError} from "@/core/service/types";
-// import {Result} from "typescript-result";
-// import {internalServerError, unauthorizedError} from "@/core/service/service.errors";
-// import {NuxtAxiosInstance} from "@nuxtjs/axios";
-// import {ToastNotificationsService} from "~/core/toast-notifications/toast-notifications.service";
-// import {i18nInstance} from "~/plugins/i18n-accessor";
-// import {AuthStoreModule, PopupsStoreModule} from "~/plugins/store-accessor";
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios"
 
-// export class BaseAxiosService {
-//   public readonly baseURL: string
-//   public readonly client: AxiosInstance
+export class BaseAxiosService {
+    public static base_api_url = process.env.VUE_APP_API_URL
+    private readonly client: AxiosInstance 
 
-//   protected constructor (axios: NuxtAxiosInstance, url: string) {
-//     this.baseURL = url
-//     this.client = axios
-//   }
+    constructor(baseURL: string) {
+        this.client = axios.create({
+            baseURL: 'http://localhost:8080/api' + baseURL,
+            timeout: 5000,
+        });
 
-//   public async executeGet<M> (url: string, options: AxiosRequestConfig = {}): Promise<Result<IServiceError, M>> {
-//     try {
-//       const response = await this.client.get<M>(this.attachBaseURL(url), options)
-//       return Result.ok(response.data)
-//     } catch (e) {
-//       return await this.parseAxiosError<M>(e)
-//     }
-//   }
+        this.client.interceptors.response.use(this.handleSuccess, this.handleError);
+    }
 
-//   public async executeWithPostContent<M> (url: string, content: object, config: AxiosRequestConfig = {}): Promise<Result<IServiceError, M>> {
-//     try {
-//       const response = await this.client.post<M>(this.attachBaseURL(url), content, config)
-//       return Result.ok(response.data)
-//     } catch (e) {
-//       return await this.parseAxiosError<M>(e)
-//     }
-//   }
+    private handleSuccess(response: AxiosResponse): AxiosResponse {
+        return response;
+    }
 
-//   public async executeWithPatchContent<M> (url: string, content: object): Promise<Result<IServiceError, M>> {
-//     try {
-//       const response = await this.client.patch<M>(this.attachBaseURL(url), content)
-//       return Result.ok(response.data)
-//     } catch (e) {
-//       return await this.parseAxiosError<M>(e)
-//     }
-//   }
+    private handleError(error: AxiosError): Promise<AxiosError> {
+        if (error.response) {
+            console.error('Error response:', error.response.data);
+        } else if (error.request) {
+            console.error('No response received:', error.request);
+        } else {
+            console.error('Request error:', error.message);
+        }
+        return Promise.reject(error);
+    }
 
-//   public async executeWithPutContent<M> (url: string, content: object): Promise<Result<IServiceError, M>> {
-//     try {
-//       const response = await this.client.put<M>(this.attachBaseURL(url), content)
-//       return Result.ok(response.data)
-//     } catch (e) {
-//       return await this.parseAxiosError<M>(e)
-//     }
-//   }
+    protected async post<T, D>(url: string, data: D): Promise<T> {
+        return this.client.post<T>(url, data)
+            .then((response: AxiosResponse<T>) => response.data)
+            .catch((error: AxiosError) => {
+                throw error;
+            });
+    }
 
-//   public async executeWithDeleteContent<M> (url: string, content: object = {}): Promise<Result<IServiceError, M>> {
-//     try {
-//       const response = await this.client.delete<M>(this.attachBaseURL(url), {
-//         data: content
-//       })
-//       return Result.ok(response.data)
-//     } catch (e) {
-//       return await this.parseAxiosError<M>(e)
-//     }
-//   }
-
-//   private attachBaseURL (url: string): string {
-//     return `${this.client.defaults.baseURL}${this.baseURL}${url}`
-//   }
-
-//   private async parseAxiosError<M>(e: any): Promise<Result<IServiceError, M>> {
-//     const error = e as AxiosError<IServiceError>
-//     if (error.response) {
-//       // The request was made and the server responded with a status code
-//       // that falls out of the range of 2xx
-//     //   if (error.response.status === 401 && process.client) {
-//     //     await PopupsStoreModule.hideActivePopup()
-//     //     await AuthStoreModule.signOut()
-//     //     return Result.error(unauthorizedError)
-//     //   }
-//       if (error.response.status === 429) {
-//         ToastNotificationsService.showErrorNotification(i18nInstance.t('notifications.too-many-requests').toString())
-//       }
-//       return Result.error(error.response.data)
-//     } else if (error.request) {
-//       // The request was made but no response was received
-//       // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-//       // http.ClientRequest in node.js
-//       return Result.error(internalServerError)
-//     } else {
-//       // Something happened in setting up the request that triggered an Error
-//       return Result.error(internalServerError)
-//     }
-//   }
-// }
+}
