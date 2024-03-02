@@ -1,7 +1,7 @@
 <template>
   <div class="link-input">
-    <div class="link-input__label">Link to shortcut</div>
-    <input v-model="input_value" class="link-input__input" placeholder="Enter link" type="text">
+    <div class="link-input__label">{{$t('link_input_label')}}</div>
+    <input v-model="input_value" class="link-input__input" :placeholder="$t('link_input_placeholder')" type="text">
     <div class="link-input__underline" :class="{'link-input__underline--error': is_error}"></div>
   </div>
 </template>

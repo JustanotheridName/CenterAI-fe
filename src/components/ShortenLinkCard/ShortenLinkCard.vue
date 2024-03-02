@@ -2,11 +2,11 @@
   <div class="shorten-link-card">
     <img class="shorten-link-card__logo" src="@/assets/Logo.svg">
     <div class="shorten-link-card__content">
-      <div class="shorten-link-card__title">Short link</div>
+      <div class="shorten-link-card__title">{{$t('title')}}</div>
       <LinkInput ref="LinkInputRef" :is_error="error"/>
       <BaseButton :callback="onShortenLinkClick">
         <template slot="body">
-          <button class="shorten-link-card__button">Shorten it</button>
+          <button class="shorten-link-card__button">{{$t('shorten_link_btn')}}</button>
         </template>
       </BaseButton>
       <ClipboardField :clipboard_value="short_link"/>

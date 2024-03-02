@@ -6,7 +6,7 @@ export class BaseAxiosService {
 
     constructor(baseURL: string) {
         this.client = axios.create({
-            baseURL: 'http://localhost:8080/api' + baseURL,
+            baseURL: '/api' + baseURL,
             timeout: 5000,
         });
 

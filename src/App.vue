@@ -25,7 +25,5 @@ html, body {
   background-color: #f8f8f8;
   height: 100%;
 }
-// <uniquifier>: Use a unique and descriptive class name
-// <weight>: Use a value from 100 to 900
 
 </style>
