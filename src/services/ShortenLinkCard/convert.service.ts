@@ -1,5 +1,5 @@
 import { BaseAxiosService } from "../base.service";
-import { IPostConvertRequest, IPostConvertResponse, URLS } from './types'
+import { IConvertLinkResult, IPostConvertRequest, IPostConvertResponse, URLS } from './types'
 
 class ConvertService extends BaseAxiosService {
 
@@ -7,8 +7,14 @@ class ConvertService extends BaseAxiosService {
         super(URLS.CONVERT)
     }
 
-    public convertLink(payload: IPostConvertRequest): Promise<IPostConvertResponse>  {
-        return this.post<IPostConvertResponse, IPostConvertRequest>('', payload)
+    public async convertLink(payload: IPostConvertRequest): Promise<IConvertLinkResult>  {
+        try {
+            const data = await this.post<IPostConvertResponse, IPostConvertRequest>('', payload)
+            return {success: true, data}
+        }
+        catch (error) {
+            return { success: false, error: 'Link coversion failed' }
+        }
     }
 
 }

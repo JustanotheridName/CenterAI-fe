@@ -1,7 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios"
 
 export class BaseAxiosService {
-    public static base_api_url = process.env.VUE_APP_API_URL
     private readonly client: AxiosInstance 
 
     constructor(baseURL: string) {

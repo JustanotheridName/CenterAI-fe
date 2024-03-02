@@ -1,5 +1,11 @@
 import { IShortenLinkCardState } from "@/store/ShortenLinkCard/types";
 
+export interface IConvertLinkResult {
+    success: boolean;
+    data?: IPostConvertResponse;
+    error?: string;
+}
+
 export enum URLS {
     CONVERT = '/conversion'
 }

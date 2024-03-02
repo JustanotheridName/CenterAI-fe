@@ -20,8 +20,9 @@ export default class LinkInput extends Vue {
     }
 
     public get isValid(): boolean {
-        const str_index = this.input_value.search('https:');
-        return str_index === 0;
+        const https_index = this.input_value.search('https:');
+        const http_index = this.input_value.search('http:');
+        return https_index === 0 || http_index == 0;
     }
 
 }
