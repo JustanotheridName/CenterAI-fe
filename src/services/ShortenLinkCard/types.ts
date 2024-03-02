@@ -1,14 +1,9 @@
 import { IShortenLinkCardState } from "@/store/ShortenLinkCard/types";
+import { IBaseResult } from "../types";
 
-export interface IConvertLinkResult {
-    success: boolean;
-    data?: IPostConvertResponse;
-    error?: string;
-}
-
-export enum URLS {
-    CONVERT = '/conversion'
-}
+export const BASE_URL = '/conversion'
+export type IConvertLinkResult = IBaseResult<IPostConvertResponse>
+export enum URLS {}
 
 export interface IPostConvertRequest {
     link: string

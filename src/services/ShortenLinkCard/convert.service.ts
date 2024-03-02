@@ -1,10 +1,10 @@
 import { BaseAxiosService } from "../base.service";
-import { IConvertLinkResult, IPostConvertRequest, IPostConvertResponse, URLS } from './types'
+import { BASE_URL, IConvertLinkResult, IPostConvertRequest, IPostConvertResponse } from './types'
 
 class ConvertService extends BaseAxiosService {
 
     constructor() {
-        super(URLS.CONVERT)
+        super(BASE_URL)
     }
 
     public async convertLink(payload: IPostConvertRequest): Promise<IConvertLinkResult>  {
